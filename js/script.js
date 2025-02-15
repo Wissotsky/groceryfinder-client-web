@@ -796,7 +796,8 @@ var map = new maplibregl.Map({
     //style: 'https://demotiles.maplibre.org/style.json', // style URL
     glyphs: "thirdparty/fonts/{fontstack}/{range}.pbf",
     center: [34.7882, 32.0699], // starting position [lng, lat]
-    zoom: 10 // starting zoom
+    zoom: 10, // starting zoom
+    attributionControl: false
 });
 map.setGlyphs("thirdparty/fonts/{fontstack}/{range}.pbf")
 
@@ -814,6 +815,7 @@ fetch("map_data/map2.wack")
 // add button controls to map 
 map.on("load", ()=>{
   map.addControl(new maplibregl.NavigationControl());
+  map.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:"<a href='https://www.maplibre.org/'>MapLibre</a> | <a href='https://www.versatiles.org/'>VersaTiles</a>  | <a href='https://www.openstreetmap.org/'>OpenStreetMap</a>"}), 'top-left');
 });
 
 // handle click on map
