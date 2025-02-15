@@ -1,0 +1,19 @@
+#map { height: 100%; }
+
+body { margin: 0; padding: 0; }
+
+.vertically-split-grid[data-is-map-expanded="true"] {
+  grid-template-rows: 1fr 1fr;
+}
+.vertically-split-grid[data-is-map-expanded="false"] {
+  grid-template-rows: min(4rem,8vh) 1fr;
+}
+
+@media only screen and (min-width: 993px) {
+  .vertically-split-grid[data-is-map-expanded="true"] {
+    grid-template-rows: auto;
+  }
+  .vertically-split-grid[data-is-map-expanded="false"] {
+    grid-template-rows: auto;
+  }
+}

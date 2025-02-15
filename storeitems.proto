@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+message StoresData {
+  repeated uint64 storeIds = 1;
+  repeated float storeLatitudes = 2;
+  repeated float storeLongitudes = 3;
+  repeated string storeNames = 4;
+}
+
+message ItemData {
+  message ItemPricingData {
+    repeated uint64 stores = 1;
+    repeated uint32 pricesAtStores = 2;
+  }
+  repeated uint64 itemIds = 1;
+  repeated string itemNames = 2;
+  repeated ItemPricingData itemPricingData = 3;
+}
+
+message PromoData {
+  repeated uint32 promoIds = 1;
+  message PromoItemIds {
+    repeated uint64 promoItemIds = 1;
+  }
+  repeated PromoItemIds promoItemIds = 2;
+  message PromoStoreIds {
+    repeated uint64 promoStoreIds = 1;
+  }
+  repeated PromoStoreIds promoStoreIds = 3;
+  repeated uint32 promoEndUnixTime = 4;
+  repeated uint32 promoDiscountedPrice = 5;
+  repeated uint32 promoDiscountRate = 6;
+  repeated string promoDescription = 7;
+}

@@ -1,0 +1,17 @@
+{
+	"noto_sans": {
+		"name": "Noto Sans",
+		"fontFace": {
+			"noto_sans_bold": {
+				"name": "Bold",
+				"italic": false,
+				"weight": 700
+			},
+			"noto_sans_regular": {
+				"name": "Regular",
+				"italic": false,
+				"weight": 400
+			}
+		}
+	}
+}

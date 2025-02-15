@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <title>Grocery Finder Web Client</title>
+    
+    <!-- beercss stylesheet and js -->
+    
+    <link rel="stylesheet" href="/stylemd.css" />
+
+    <link rel="stylesheet" href="thirdparty\beercss@3.9.3\beer.min.css">
+    <script type="module" src="thirdparty\beercss@3.9.3\beer.min.js"></script>
+    
+    <!-- maplibre js and css -->
+    <link rel="stylesheet" href="thirdparty\maplibre-gl@5.1.0\maplibre-gl.css">
+    <script src="thirdparty\maplibre-gl@5.1.0\maplibre-gl.js"></script>
+    
+    <!-- Profotobuf.js -->
+    <script src="thirdparty\protobufjs@7.4.0\protobuf.min.js"></script>
+    
+    <!-- js based zstd decompressor -->
+    <script src="thirdparty\fzstd@0.1.1\fzstd.js"></script>
+    
+    <!-- First party javascript files -->
+    <script src="js/lib.js"></script>
+    <script src="js/WACK/wackrender.js"></script>
+    <script src="js/script.js" defer></script>
+  </head>
+  <!--
+  <body>
+    <dialog id="dialogElem">
+      <form method="dialog">
+        <button type="submit" autofocus>close</button>
+      </form>
+      <div id="dialogData">
+        more item information
+      </div>
+    </dialog>
+    
+    <div class="global-container">
+        <div class="mapside">
+           <div id="map"></div>
+            <button id="resizebutton" class="resizebutton" onclick="handlerMapResize(event)">
+              🗺
+            </button>
+        </div>
+        <div id="menuside" class="menuside" style="overflow:hidden">
+          <input id="searchbox" class="searchbox" type="search" placeholder="Searchbox">
+          
+          <input style="display:none;" type="radio" name="topswitch" id="cartbutton" onclick="handlerShoppingCart(event)">
+          <input style="display:none;" type="radio" name="topswitch" id="globalbutton" onclick="handlerGlobalSearch(event)">
+          <input style="display:none;" type="radio" name="topswitch" id="storebutton" onclick="handlerStoreButton(event)">
+          <input style="display:none;" type="radio" name="topswitch" id="discountbutton" onclick="handlerDiscountButton(event)">
+          
+          <div id="selector" class="buttonbar">
+            <label class="button" for="cartbutton">🛒</label>
+            
+            <label class="button" for="globalbutton">🌐</label>
+            
+            <label class="button" for="storebutton">🏪</label>
+            
+            <label class="button" for="discountbutton">💰(test)</label>
+            
+          </div>
+        </div>
+        <div id="lol" class="scrollcontainer justscroll" style="max-height:100%">
+            click on a store
+            <article class="itemcard">
+              <input type="checkbox" id="itemId" value="value">
+              <label for="itemId"></label>
+              lolwhatever
+              <button onclick="handlerItemDiscountsButton(0)">
+                Open btn
+              </button>
+              <div class="rightside">
+                10
+                <span style="color:lightgreen;">7</span>..<span style="color:lightcoral;">13</span>
+              </div>
+            </article>
+        </div>
+    </div>
+  </body>
+  -->
+  <body style="height:100dvh;">
+    <nav class="s bottom">
+      <a onclick="handlerShoppingCart(event)">
+        <i>shopping_cart</i>
+        <div>Cart</div>
+      </a>
+      <a onclick="handlerGlobalSearch(event)">
+        <i>search</i>
+        <div>Search</div>
+      </a>
+      <a>
+        <i>settings</i>
+        <div>Settings</div>
+      </a>
+    </nav>
+    <nav class="l m left">
+      <header></header>
+      <a onclick="handlerShoppingCart(event)">
+        <i>shopping_cart</i>
+        <div>Cart</div>
+      </a>
+      <a onclick="handlerGlobalSearch(event)">
+        <i>search</i>
+        <div>Search</div>
+      </a>
+      <a>
+        <i>settings</i>
+        <div>Settings</div>
+      </a>
+    </nav>
+    <main class="responsive max">
+      <div id="map-content-grid" class="grid vertically-split-grid" style="height:100%; overflow-y: hidden;" data-is-map-expanded="true">
+        <div class="s12 l6">
+          <div id="map" class="small-round"></div>
+          
+          <!-- map collapse/expand button -->
+          <button id="map-collapse-expand-button" onclick="mapCollapseExpandEvent(event)" class="surface-container-highest" style="height: 0.5rem; top: -0.25rem;left: 50%;transform: translate(-50%);margin: 0;">
+              <i id="map-collapse-expand-button-icon">keyboard_arrow_up</i>
+          </button>
+          <script>
+            function mapCollapseExpandEvent(event) {
+              let isMapExpanded = document.getElementById("map-content-grid").dataset.isMapExpanded
+              let boolIsMapExpanded = (isMapExpanded === "true")
+              console.log(boolIsMapExpanded)
+              document.getElementById("map-content-grid").dataset.isMapExpanded = !boolIsMapExpanded
+              
+              document.getElementById("map-collapse-expand-button-icon").innerText = !boolIsMapExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down"
+            }
+          </script>
+        </div>
+          <div id="scroll-pane" class="s12 l6" style="overflow-y: scroll;">
+            <div id="download-progress" style="color:maroon;background:red;position:absolute;z-index:1001;">
+              <h3>
+                Downloading items
+              </h3>
+            </div>
+            <div class="field large prefix round fill" style="position: sticky;top: 0px;z-index: 3;">
+                <i class="front">search</i>
+                <input id="search-box" type="search" placeholder="Search Items">
+                <p id="small-text">small text here</p>
+            </div>
+          <div id="content-pane" style="height:100%">
+            <button class="responsive small-elevate extra surface-container margin">
+              <i>home</i>
+              <span>Add group</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <dialog id="dialog" class="right large">
+    </dialog>
+  </body>
+</html>
