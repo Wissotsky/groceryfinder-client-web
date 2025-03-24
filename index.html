@@ -7,6 +7,8 @@
     <link rel="icon" href="/favicon.ico" />
 
     <title>Grocery Finder Web Client</title>
+
+
     
     <!-- beercss stylesheet and js -->
     
@@ -29,63 +31,12 @@
     <script src="js/lib.js"></script>
     <script src="js/WACK/wackrender.js"></script>
     <script src="js/script.js" defer></script>
+
+    <!-- alpinejs -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <!--
-  <body>
-    <dialog id="dialogElem">
-      <form method="dialog">
-        <button type="submit" autofocus>close</button>
-      </form>
-      <div id="dialogData">
-        more item information
-      </div>
-    </dialog>
-    
-    <div class="global-container">
-        <div class="mapside">
-           <div id="map"></div>
-            <button id="resizebutton" class="resizebutton" onclick="handlerMapResize(event)">
-              🗺
-            </button>
-        </div>
-        <div id="menuside" class="menuside" style="overflow:hidden">
-          <input id="searchbox" class="searchbox" type="search" placeholder="Searchbox">
-          
-          <input style="display:none;" type="radio" name="topswitch" id="cartbutton" onclick="handlerShoppingCart(event)">
-          <input style="display:none;" type="radio" name="topswitch" id="globalbutton" onclick="handlerGlobalSearch(event)">
-          <input style="display:none;" type="radio" name="topswitch" id="storebutton" onclick="handlerStoreButton(event)">
-          <input style="display:none;" type="radio" name="topswitch" id="discountbutton" onclick="handlerDiscountButton(event)">
-          
-          <div id="selector" class="buttonbar">
-            <label class="button" for="cartbutton">🛒</label>
-            
-            <label class="button" for="globalbutton">🌐</label>
-            
-            <label class="button" for="storebutton">🏪</label>
-            
-            <label class="button" for="discountbutton">💰(test)</label>
-            
-          </div>
-        </div>
-        <div id="lol" class="scrollcontainer justscroll" style="max-height:100%">
-            click on a store
-            <article class="itemcard">
-              <input type="checkbox" id="itemId" value="value">
-              <label for="itemId"></label>
-              lolwhatever
-              <button onclick="handlerItemDiscountsButton(0)">
-                Open btn
-              </button>
-              <div class="rightside">
-                10
-                <span style="color:lightgreen;">7</span>..<span style="color:lightcoral;">13</span>
-              </div>
-            </article>
-        </div>
-    </div>
-  </body>
-  -->
-  <body style="height:100dvh;">
+
+  <body style="height:100dvh;" x-data>
     <nav class="s bottom">
       <a onclick="handlerShoppingCart(event)">
         <i>shopping_cart</i>
@@ -111,7 +62,7 @@
         <div>Search</div>
       </a>
       <a>
-        <i>settings</i>
+        <i class="chip-selected">settings</i>
         <div>Settings</div>
       </a>
     </nav>
@@ -141,11 +92,14 @@
                 Downloading items
               </h3>
             </div>
-            <div class="field large prefix round fill" style="position: sticky;top: 0px;z-index: 3;">
-                <i class="front">search</i>
-                <input id="search-box" type="search" placeholder="Search Items">
-                <p id="small-text">small text here</p>
-            </div>
+            <article>
+              <div class="field small prefix round fill" style="position: sticky;top: 0px;z-index: 3;margin:0;">
+                  <i class="front">search</i>
+                  <input id="search-box" type="search" placeholder="Search Items">
+              </div>
+              <p id="small-text" style="margin:0;">small text here</p>
+              <p id="small-text2" x-text="$store.smallText.text" style="margin:0;">small text here</p>
+            </article>
           <div id="content-pane" style="height:100%">
             <button class="responsive small-elevate extra surface-container margin">
               <i>home</i>

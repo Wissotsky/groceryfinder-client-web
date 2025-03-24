@@ -144,6 +144,8 @@ function htmlStoreItemList(storeItems,storeId,globalItemList,selectedItems) {
   
   let storeName = document.getElementById("small-text");
     storeName.textContent = StoresData.storeNames[StoresData.storeIds.indexOf(storeId)];
+
+  Alpine.store('smallText').text = StoresData.storeNames[StoresData.storeIds.indexOf(storeId)];
   
   // apply search to store items
   storeItems = Utils.filterItemsBySearchQuery(storeItems,STATEsearchterm,globalItemList)
@@ -1124,3 +1126,14 @@ window.addEventListener("load", () => {
           navigator.serviceWorker.register("js/sw.js");
         }
       });
+
+// Initialize Alpine stores
+document.addEventListener("alpine:init", () => {
+  console.log("INITIALIZING ALPINE STORES");
+  Alpine.store('smallText', {
+    text: "small text alpine store",
+    setText(newText) {
+      this.text = newText;
+    }
+  });
+});

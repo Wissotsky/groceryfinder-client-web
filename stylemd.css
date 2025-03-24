@@ -17,3 +17,10 @@ body { margin: 0; padding: 0; }
     grid-template-rows: auto;
   }
 }
+
+.chip-selected {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  padding: .25rem 1rem;
+  font-variation-settings: "FILL" 1
+}
