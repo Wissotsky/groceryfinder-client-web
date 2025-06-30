@@ -423,6 +423,10 @@ function itemDiscountList(itemId,itemIdx) {
   divNode.append(newlineBreak);
   
   for (var i=0; i < GLOBALDiscountData.promoIds.length; i++) {
+    if (Object.keys(window.PromoData.promoItemIds[i]).length === 0) {
+      // TODO: Hacky patch for empty promoItemIds, should be handled on the injestion side, errors when theres vectors with only nothing values because they failed to parse to a uint32
+      continue
+    }
     let itemIsInPromo = GLOBALDiscountData.promoItemIds[i].promoItemIds.includes(Number(itemId));
     if (!itemIsInPromo) {
       continue
